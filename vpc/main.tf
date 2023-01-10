@@ -1,8 +1,6 @@
 resource "aws_vpc" "vpc-1" {
   cidr_block           = var.cidr
   instance_tenancy     = "default"
-  enable_nat_gateway   = true
-  single_nat_gateway   = true
   enable_dns_support   = "true"
   enable_dns_hostnames = "true"
 
