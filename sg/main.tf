@@ -1,3 +1,31 @@
+resource "aws_security_group" "ec2" {
+  name = "ops_service"
+  description = "Ops Service Security Group"
+  vpc_id      = var.vpc_id
+  tags   = merge(
+    var.tags,
+    {
+      "Name" = "Ops Service Security Group"
+    }
+  )
+
+  ingress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["80.194.202.216/29"]
+    description = "Raymond Butler - NOC"
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow All Outgoing"
+  }
+}
+
 resource "aws_security_group" "ecs" {
   description = "Allow traffic for ECS"
   vpc_id = var.vpc_id

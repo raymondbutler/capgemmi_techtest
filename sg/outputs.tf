@@ -1,3 +1,8 @@
+output "ec2_sg_id" {
+  description = "ECS Security Group id"
+  value = aws_security_group.ec2.id
+}
+
 output "ecs_sg_id" {
   description = "ECS Security Group id"
   value = aws_security_group.ecs.id

@@ -28,6 +28,21 @@ module "sg" {
   tags                 = var.tags
 }
 
+module "ec2" {
+  source               = "./ec2"
+  app_name             = var.app_name
+  app_environment      = var.app_environment
+  vpc_id               = module.vpc.vpc_id
+  private-subnets      = module.vpc.private-subnets
+  public-subnets       = module.vpc.public-subnets
+  ec2_sg_id            = module.sg.ec2_sg_id
+  ssh_key_name         = var.ssh_key_name
+  tags                 = var.tags
+}
+
+
+/*
+
 module "rds" {
   source               = "./rds"
   app_name             = var.app_name
@@ -35,13 +50,11 @@ module "rds" {
   availability_zones   = var.availability_zones
   vpc_id               = module.vpc.vpc_id
   private-subnets      = module.vpc.private-subnets
-  public-subnets      = module.vpc.public-subnets
   rds_sg_id            = module.sg.rds_sg_id
   tags                 = var.tags
 }
 
 
-/*
 module "alb" {
   source               = "./alb"
   app_name             = var.app_name
@@ -57,10 +70,9 @@ module "alb" {
 */
 
 
-
-
-
 /*
+
+
 module "cloudwatch" {
   source               = "./cloudwatch"
   tags                 = var.tags
