@@ -33,7 +33,36 @@ resource "aws_security_group" "ecs" {
   tags = merge(
     var.tags,
     {
-      "Name" = "${var.app_name}-sg"
+      "Name" = "${var.app_name}-ecs"
+    }
+  )
+}
+
+resource "aws_security_group" "rds" {
+  description = "Allow traffic for RDS Cluster"
+  vpc_id = var.vpc_id
+
+  ingress {
+    from_port        = 3306
+    to_port          = 3306
+    protocol         = "tcp"
+    cidr_blocks      = var.private_subnets
+# not using IPV6
+#    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+# not using IPV6
+#    ipv6_cidr_blocks = ["::/0"]
+  }
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "${var.app_name}-rds"
     }
   )
 }
@@ -61,7 +90,7 @@ resource "aws_security_group" "alb" {
   tags = merge(
     var.tags,
     {
-      "Name" = "${var.app_name}-sg"
+      "Name" = "${var.app_name}-alb"
     }
   )
 }

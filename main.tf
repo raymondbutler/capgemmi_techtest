@@ -28,18 +28,39 @@ module "sg" {
   tags                 = var.tags
 }
 
+module "rds" {
+  source               = "./rds"
+  app_name             = var.app_name
+  app_environment      = var.app_environment
+  availability_zones   = var.availability_zones
+  vpc_id               = module.vpc.vpc_id
+  private-subnets      = module.vpc.private-subnets
+  public-subnets      = module.vpc.public-subnets
+  rds_sg_id            = module.sg.rds_sg_id
+  tags                 = var.tags
+}
+
+
+/*
 module "alb" {
   source               = "./alb"
-  app_environment      = var.app_name
-  app_name             = var.app_environment
-  tags                 = var.tags
+  app_name             = var.app_name
+  app_environment      = var.app_environment
   vpc_id               = module.vpc.vpc_id
   private-subnets      = module.vpc.private-subnets
   public-subnets       = module.vpc.public-subnets
   ecs_sg_id            = module.sg.ecs_sg_id
   alb_sg_id            = module.sg.alb_sg_id
+  tags                 = var.tags
 }
 
+*/
+
+
+
+
+
+/*
 module "cloudwatch" {
   source               = "./cloudwatch"
   tags                 = var.tags
@@ -51,7 +72,7 @@ module "ecr" {
   tags                 = var.tags
 }
 
-/*
+# /*
 
 module "ecs" {
   source = "./ecs"
