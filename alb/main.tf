@@ -34,6 +34,7 @@ resource "aws_lb_target_group" "target_group" {
     path                = "/v1/status"
     unhealthy_threshold = "2"
   }
+
   tags = merge(
     var.tags,
     {
