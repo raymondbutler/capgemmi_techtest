@@ -1,1 +1,0 @@
-# capgemmi_techtest
