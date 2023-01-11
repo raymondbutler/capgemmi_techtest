@@ -32,9 +32,9 @@ resource "docker_container" "nodejs_notejam" {
   must_run              = true
   memory                = 256
   env                   = ["NAME=NOTEJAM", "PORT=80", "NODE_ENV=development"]
-  command = ["node", "/app/webserver.js"]
+#  command = ["node", "/app/webserver.js"]
+  command               = ["/app/bin/www"]
 #  command = ["node", "www"]
-#  command               = ["/app/bin/www"]
 
   ports {
     internal = 80
