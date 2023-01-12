@@ -13,8 +13,12 @@ module "ecs-fargate" {
   version = "2.0.17"
   name_preffix        = "${var.app_name}-${var.app_environment}"
   vpc_id              = module.base-network.vpc_id
-#  container_image     = "nginx"
-  container_image     = "node"
+# To use a private repo it defaults to docker"
+#  mount_points           = "repo_url"
+  repository_credentials = "arn:aws:secretsmanager:eu-west-1:329803241466:secret:ecr-notejam_nodejs-Yw70y3"
+  container_image     = "329803241466.dkr.ecr.eu-west-1.amazonaws.com/notejam_nodejs:latest"
+#works  container_image     = "nginx"
+# image     = "${aws_ecr_repository.hello_world.repository_url}:${var.release_version}"
   container_name      = var.app_name
   public_subnets_ids  = module.base-network.public_subnets_ids
   private_subnets_ids = module.base-network.private_subnets_ids

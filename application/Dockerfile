@@ -7,7 +7,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY notejam/package*.json .
 RUN npm install
-COPY webserver.js webserver.js
+# COPY webserver.js webserver.js
 COPY notejam/ .
 RUN node db.js
 EXPOSE 80
